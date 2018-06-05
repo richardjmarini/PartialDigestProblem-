@@ -6,15 +6,6 @@ from math import sqrt, factorial
 
 iterations= 0
 
-def delta(y, X):
-
-    diff= []
- 
-    for xi in X:
-        diff.append(abs(y - xi))
-
-    return diff
-
 def process_delta(y, D, X, L, width):
 
     # if delta(y, X) is subset of L
@@ -50,12 +41,12 @@ def place(L, X, width):
     y= max(L)
 
     # outer most distance y
-    D= delta(y, X)
+    D= [abs(y - x) for x in X]
     process_delta(y, D, X, L, width)
   
     # second outer most distance abs(width - y)
     y= abs(width - y)
-    D= delta(y, X)
+    D= [abs(y - x) for x in X]
     process_delta(y, D, X, L, width)
 
     # backtrack
