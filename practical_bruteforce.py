@@ -69,9 +69,7 @@ def partial_digest(L):
     return 
 
 if __name__ == '__main__':
-    """              (n)
-    """
-
+    
     parser= ArgumentParser(description= 'Partial Digest Problem')
     parser.add_argument('--L', type= int, nargs= '+', default= [2,2,3,3,4,5,6,7,8,10], help= 'list of integers')
 
