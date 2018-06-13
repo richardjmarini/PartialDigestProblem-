@@ -19,9 +19,10 @@ def process_delta(y, D, X, L, width):
         place(L, X, width)
     
         # Remove y from X and add lengths delta(y, X) to L 
-        if y in X:
-            X.remove(y)
-        L.extend(D)
+        X.remove(y) # undo modifications to X for next recursive call
+        L.extend(D) # undo modifications to L for the next recursrive call
+
+    return 
 
 
 def place(L, X, width):
