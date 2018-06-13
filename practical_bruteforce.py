@@ -13,7 +13,9 @@ def process_delta(y, D, X, L, width):
      
         # Add y to X and remove lengths delta(y, X) from L
         X.append(y)
-        map(L.remove, D)
+        for d in D:
+            if d in L:
+                L.remove(d)
 
         # PLACE(L,X)
         place(L, X, width)
