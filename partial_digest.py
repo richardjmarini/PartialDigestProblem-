@@ -32,7 +32,11 @@ if __name__ == '__main__':
 
     elif optimization_level == 2:
 
-        partial_digest(L)
+        solutions= []
+        partial_digest(L, solutions)
+        print solutions
+        for (iterations, X) in solutions:
+            print "%s in %s iterations" % (X, iterations)
 
     else:
         print >> stderr, "invalid optimization level"

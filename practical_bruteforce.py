@@ -7,7 +7,7 @@ from copy import copy
 
 iterations= 0
 
-def process_delta(y, D, X, L, width):
+def process_delta(y, D, X, L, width, solutions):
 
     # if delta(y, X) is subset of L
     if set(D).issubset( L ):
@@ -27,7 +27,7 @@ def process_delta(y, D, X, L, width):
     return 
 
 
-def place(L, X, width, solutions= []):
+def place(L, X, width, solutions):
   
     global iterations
     iterations+= 1
@@ -36,7 +36,7 @@ def place(L, X, width, solutions= []):
     if not L:
 
         # output X
-        solutions.append((iterations, sorted(X)))
+        solutions.append((X, iterations))
         return 
 
     # y <- maximum element in L
@@ -44,12 +44,12 @@ def place(L, X, width, solutions= []):
 
     # outer most distance y
     D= [abs(y - x) for x in X]
-    process_delta(y, D, copy(X), copy(L), width)
+    process_delta(y, D, copy(X), copy(L), width, solutions)
   
     # second outer most distance abs(width - y)
     y= abs(width - y)
     D= [abs(y - x) for x in X]
-    process_delta(y, D, copy(X), copy(L), width)
+    process_delta(y, D, copy(X), copy(L), width, solutions)
    
     # backtrack
     return
@@ -83,6 +83,7 @@ if __name__ == '__main__':
     print "L = %s" % (L)
 
     partial_digest(L, solutions)
-
-    for (iterations, X) in solutions:
+    
+    for (X, iterations) in solutions:
         print 'X = %s in %i iterations' % (X, iterations)
+
