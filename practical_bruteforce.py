@@ -3,6 +3,7 @@
 from argparse import ArgumentParser
 from itertools import combinations
 from math import sqrt, factorial
+from copy import copy
 
 iterations= 0
 
@@ -16,17 +17,18 @@ def process_delta(y, D, X, L, width):
         [L.remove(d) for d in D if d in L]
 
         # PLACE(L,X)
-        place(L, X, width)
-    
+        place(L, X, width, solutions)
+   
+        # replaced by copy() prior to call to process_delta()
         # Remove y from X and add lengths delta(y, X) to L 
-        X.remove(y) # undo modifications to X for next recursive call
-        L.extend(D) # undo modifications to L for the next recursrive call
+        #X.remove(y) # undo modifications to X for next recursive call
+        #L.extend(D) # undo modifications to L for the next recursrive call
 
     return 
 
 
-def place(L, X, width):
-
+def place(L, X, width, solutions= []):
+  
     global iterations
     iterations+= 1
 
@@ -34,8 +36,7 @@ def place(L, X, width):
     if not L:
 
         # output X
-        print 'X = %s in %i iterations' % (sorted(X), iterations)
-
+        solutions.append((iterations, sorted(X)))
         return 
 
     # y <- maximum element in L
@@ -43,17 +44,17 @@ def place(L, X, width):
 
     # outer most distance y
     D= [abs(y - x) for x in X]
-    process_delta(y, D, X, L, width)
+    process_delta(y, D, copy(X), copy(L), width)
   
     # second outer most distance abs(width - y)
     y= abs(width - y)
     D= [abs(y - x) for x in X]
-    process_delta(y, D, X, L, width)
-
+    process_delta(y, D, copy(X), copy(L), width)
+   
     # backtrack
     return
   
-def partial_digest(L):
+def partial_digest(L, solutions= []):
 
     # width <- Maximum element in L
     width= max(L)
@@ -65,7 +66,7 @@ def partial_digest(L):
     X= [0, width]
 
     # PLACE(L, X, width)
-    place(L, X, width)
+    place(L, X, width, solutions)
 
     return 
 
@@ -77,8 +78,11 @@ if __name__ == '__main__':
     args= parser.parse_args()
     L= args.L
 
+    solutions= []
+
     print "L = %s" % (L)
 
-    partial_digest(L)
+    partial_digest(L, solutions)
 
-
+    for (iterations, X) in solutions:
+        print 'X = %s in %i iterations' % (X, iterations)
