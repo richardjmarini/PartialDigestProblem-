@@ -33,28 +33,43 @@ class TestStringMethods(unittest.TestCase):
 
     def test_brute_force(self):
 
+        print 'brute force...'
+
         for (L, solutions) in self.TEST_DIGESTS.items():
 
+            print "L=", L
+
             n = int( (sqrt(1 + 8 * len(L)) + 1) / 2 ) 
-            (X, iterations) = brute_force(list(L), n, 0)
-            self.assertTrue(tuple(X) in solutions)
+            (solution, iterations) = brute_force(list(L), n, 0)
+            print 'found %s in %i iterations' % (solution, iterations)
+            self.assertTrue(tuple(solution) in solutions)
 
     def test_brute_force_optmiization(self):
 
+        print 'brute force optimized...'
+
         for (L, solutions) in self.TEST_DIGESTS.items():
 
+            print "L=", L
+
             n = int( (sqrt(1 + 8 * len(L)) + 1) / 2 ) 
-            (X, iterations) = brute_force(list(L), n, 1)
-            self.assertTrue(tuple(X) in solutions)
+            (solution, iterations) = brute_force(list(L), n, 1)
+            print 'found %s in %i iterations' % (solution, iterations)
+            self.assertTrue(tuple(solution) in solutions)
 
     def test_practical_brute_force(self):
 
+        print 'practical brute force...'
+
         for (L, solutions) in self.TEST_DIGESTS.items():
 
-            X= []
-            partial_digest(list(L), X)
-            for X in [tuple(sorted(solution)) for (solution, iterations) in X]:
-                self.assertTrue(tuple(X) in solutions)
+            print "L=", L
+
+            results= []
+            partial_digest(list(L), results)
+            for (solution, iterations) in results: 
+                print 'found %s in %i iterations' % (solution, iterations)
+                self.assertTrue(tuple(solution) in solutions)
 
 
 
