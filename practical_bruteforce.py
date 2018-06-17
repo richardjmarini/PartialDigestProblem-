@@ -36,7 +36,7 @@ def place(L, X, width, solutions):
     if not L:
 
         # output X
-        solutions.append((X, iterations))
+        solutions.append((sorted(X), iterations))
         return 
 
     # y <- maximum element in L
