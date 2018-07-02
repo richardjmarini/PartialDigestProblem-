@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from time import time
 from argparse import ArgumentParser
 from itertools import combinations
 from math import sqrt, factorial
@@ -103,7 +104,10 @@ if __name__ == '__main__':
 
     n = int( (sqrt(1 + 8 * len(L)) + 1) / 2 )
 
+    start_time= time()
     (X, iterations) = brute_force(L, n, optimization)
+    end_time= time()
 
     output= "X = %s" % (X) if X else "No Solution"
     print "%s in %s iterations" % (output, iterations)
+    print end_time - start_time, "seconds"

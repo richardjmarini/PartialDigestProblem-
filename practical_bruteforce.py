@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from time import time
 from argparse import ArgumentParser
 from itertools import combinations
 from math import sqrt, factorial
@@ -82,8 +83,11 @@ if __name__ == '__main__':
 
     print "L = %s" % (L)
 
+    start_time= time()
     partial_digest(L, solutions)
+    end_time= time()
     
     for (X, iterations) in solutions:
         print 'X = %s in %i iterations' % (X, iterations)
+    print end_time - start_time, "seconds"
 
