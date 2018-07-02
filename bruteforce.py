@@ -75,10 +75,10 @@ if __name__ == '__main__':
     parser.add_argument('--L', type= int, nargs= '+', default= [2,2,3,3,4,5,6,7,8,10], help= 'list of integers')
 
     args= parser.parse_args()
+    print args
     optimization= args.optimization
     L= args.L
 
-    print "Optmization: %s" % (optimization)
     print "L = %s" % (L)
 
     """
